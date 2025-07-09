@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tinkly AI Tutor</title>
+  <meta charset="UTF-8">
+  <title>Tinkly AI</title>
 </head>
-<body style="font-family: sans-serif;">
-  <h1 style="text-align: center;">Welcome to Tinkly!</h1>
-
-  <div class="ai-tutor-box" style="padding:1rem; border:1px solid #ddd; max-width:600px; margin:2rem auto;">
-    <h2>🤖 Tinkly AI Tutor</h2>
-    <textarea id="userPrompt" rows="4" style="width:100%;" placeholder="Ask me anything about robotics..."></textarea><br/>
-    <button onclick="askAI()" style="margin-top:0.5rem;">Ask AI</button>
-    <pre id="aiResponse" style="background:#f9f9f9; padding:1rem; margin-top:0.5rem;"></pre>
-  </div>
+<body>
+  <h1>🤖 Tinkly AI</h1>
+  <input id="user-input" placeholder="Ask me about circuits, code, etc" size="50" />
+  <button id="ask-btn">Ask</button>
+  <pre id="response"></pre>
 
   <script src="ai.js"></script>
 </body>
