@@ -1,25 +1,36 @@
-async function askAI() {
-  const prompt = document.getElementById("userPrompt").value;
-  const responseBox = document.getElementById("aiResponse");
-  responseBox.textContent = "Thinking...";
+const API_URL = "http://127.0.0.1:8080/ask";
 
+async function askAI(prompt) {
   try {
-    const res = await fetch("https://tinkly-ai-api.replit.app/ask", {
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ prompt })
+      body: JSON.stringify({ prompt: prompt })
     });
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (data?.choices?.[0]?.message?.content) {
-      responseBox.textContent = data.choices[0].message.content.trim();
+    if (data.choices && data.choices.length > 0) {
+      return data.choices[0].message.content;
     } else {
-      responseBox.textContent = "No valid response received.";
+      return "No response from the AI.";
     }
-  } catch (err) {
-    responseBox.textContent = "Error talking to AI: " + err.message;
+  } catch (error) {
+    console.error("Error communicating with AI backend:", error);
+    return "Error communicating with AI backend.";
   }
 }
+
+document.getElementById("ask-btn").addEventListener("click", async () => {
+  const inputBox = document.getElementById("user-input");
+  const responseBox = document.getElementById("response");
+
+  const prompt = inputBox.value.trim();
+  if (!prompt) return;
+
+  responseBox.innerText = "Thinking...";
+  const aiResponse = await askAI(prompt);
+  responseBox.innerText = aiResponse;
+});
